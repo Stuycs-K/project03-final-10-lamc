@@ -1,4 +1,4 @@
-#include gamble.c
+#include "gamble.h"
 
 int create_prize(){
   int data = open("arraydata.dat", O_CREAT | O_RDWR, 0640);
@@ -10,17 +10,29 @@ int create_prize(){
 }
 
 void discussion_time(){
+  printf("You will have the next 10 seconds to discuss whether to steal or split the prize");
 
+  //fork for 10 seconds and then call wait in play_game??
+}
+
+void decision_time(){
+  printf("You will have the next 5 seconds to steal or split the prize");
 }
 
 void play_game(){
   int prize = create_prize();
   prize = abs(prize) % 100
   printf("Total prize: $%d \n", prize);
-  printf("You will have the next 10 seconds to discuss whether to steal or split the prize");
   /*
 
-  Discussion code
+discussion_time() - also how
 
   */
+
+  /*
+
+  decision_time()
+
+  */
+
 }
