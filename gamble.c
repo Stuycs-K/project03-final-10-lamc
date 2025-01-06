@@ -9,8 +9,18 @@ int create_prize(){
   return data;
 }
 
+void discussion_time(){
+
+}
+
 void play_game(){
   int prize = create_prize();
-  printf("Total prize: %d \n", prize);
-  printf("You will have the next 10 seconds to discuss")
+  prize = abs(prize) % 100
+  printf("Total prize: $%d \n", prize);
+  printf("You will have the next 10 seconds to discuss whether to steal or split the prize");
+  /*
+
+  Discussion code
+
+  */
 }
