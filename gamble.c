@@ -1,11 +1,22 @@
-#include "gamble.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <errno.h>
+#include <time.h>
+//#include "gamble.h"
 
 int create_prize(){
-  int data = open("arraydata.dat", O_CREAT | O_RDWR, 0640);
-  if(read(data, &data, sizeof(data)) < 0){
+  int fd = open("/dev/random", O_RDONLY, 0440);
+  int data;
+  if(read(fd, &data, sizeof(data)) < 0){
     perror("mkfifo");
     exit(1);
   }
+  close(fd);
   return data;
 }
 
@@ -21,8 +32,9 @@ void decision_time(){
 
 void play_game(){
   int prize = create_prize();
-  prize = abs(prize) % 100
-  printf("Total prize: $%d \n", prize);
+  prize = abs(prize) % 100;
+    printf("Total prize: $%d \n", prize);
+}
   /*
 
 discussion_time() - also how
@@ -35,4 +47,7 @@ discussion_time() - also how
 
   */
 
+// Debug
+int main(){
+  play_game();
 }
