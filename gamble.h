@@ -7,6 +7,9 @@
 #include <string.h>
 #include <errno.h>
 #include <time.h>
+#include <sys/shm.h>
+#include <sys/ipc.h>
+#include <sys/types.h>
 
 #ifndef NETWORKING_H
 #define NETWORKING_H

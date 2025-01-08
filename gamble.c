@@ -22,7 +22,9 @@ int create_prize(){
 
 void discussion_time(){
   printf("You will have the next 10 seconds to discuss whether to steal or split the prize");
-
+  char *player_A[BUFFER_SIZE];
+  char *player_B[BUFFER_SIZE];
+  
   //fork for 10 seconds and then call wait in play_game??
 }
 
@@ -33,7 +35,10 @@ void decision_time(){
 void play_game(){
   int prize = create_prize();
   prize = abs(prize) % 100;
-    printf("Total prize: $%d \n", prize);
+  printf("Total prize: $%d \n", prize);
+
+  discussion_time();
+
 }
   /*
 
