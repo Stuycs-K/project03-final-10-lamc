@@ -11,8 +11,9 @@ Made random number generator works, added semaphores and shared memory headers i
 Copied over networking part, tweaked in order to try to get lobby to work - 30 mins
 Started making semaphores for the chatting portion of the game - 30 mins
 
-### 2024-01-03 - Brief description
-Expanded description including how much time was spent on task.
+### 2024-01-08 - Made makefile, trying to learn sockets
+Makefile - 10 minutes
+Socket Learning - 1 hour
 
 ## Player 2
 
