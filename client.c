@@ -1,5 +1,3 @@
-// Client side C program to demonstrate Socket
-// programming
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <string.h>
@@ -30,19 +28,23 @@ int main(int argc, char const* argv[])
         return -1;
     }
 
-    if ((status
-         = connect(client_fd, (struct sockaddr*)&serv_addr,
+    if ((status = connect(client_fd, (struct sockaddr*)&serv_addr,
                    sizeof(serv_addr)))
         < 0) {
         printf("\nConnection Failed \n");
         return -1;
     }
-    send(client_fd, hello, strlen(hello), 0);
+
+    //Create buffer, get user input
+    char buffer2[1024];
+    //  if (fgets(buffer2, sizeof(buffer2), stdin) == NULL) {
+        send(client_fd, hello, strlen(hello), 0);
+  //  }
+
     printf("Hello message sent\n");
-    valread = read(client_fd, buffer,
-                   1024 - 1); // subtract 1 for the null
+    valread = read(client_fd, buffer2, 1024 - 1); // subtract 1 for the null
                               // terminator at the end
-    printf("%s\n", buffer);
+    printf("%s\n", buffer2);
 
     // closing the connected socket
     close(client_fd);
