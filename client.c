@@ -9,7 +9,6 @@ int main(int argc, char const* argv[])
 {
     int status, valread, client_fd;
     struct sockaddr_in serv_addr;
-    char* hello = "Hello from client";
     char buffer[1024] = { 0 };
     if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         printf("\n Socket creation error \n");
@@ -36,15 +35,19 @@ int main(int argc, char const* argv[])
     }
 
     //Create buffer, get user input
-    char buffer2[1024];
-    //  if (fgets(buffer2, sizeof(buffer2), stdin) == NULL) {
-        send(client_fd, hello, strlen(hello), 0);
-  //  }
+    char user_input[1024];
+    char* hello = "Hello from client";
+while(1){
+  bzero(user_input,1024);
+  fgets(user_input,1024,stdin);
+  printf("USER_INPUT: %s\n", user_input);
+  send(client_fd, user_input, strlen(user_input), 0);
+  //memset(user_input, '\0',strlen(user_input));
+}
 
-    printf("Hello message sent\n");
-    valread = read(client_fd, buffer2, 1024 - 1); // subtract 1 for the null
-                              // terminator at the end
-    printf("%s\n", buffer2);
+    valread = read(client_fd, buffer, 1024 - 1); // subtract 1 for the null
+    // terminator at the end
+    //printf("%s\n", user_input);
 
     // closing the connected socket
     close(client_fd);

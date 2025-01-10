@@ -12,7 +12,7 @@ int main(int argc, char const* argv[])
     struct sockaddr_in address;
     int opt = 1;
     socklen_t addrlen = sizeof(address);
-    char buffer[1024] = { 0 };
+    char buffer[1024];
     char* hello = "Hello from server";
 
     // Creating socket file descriptor
@@ -39,7 +39,7 @@ int main(int argc, char const* argv[])
         perror("bind failed");
         exit(EXIT_FAILURE);
     }
-	while(1){
+    //LOOP HERE FOR FORKING SERVER
     if (listen(server_fd, 3) < 0) {
         perror("listen");
         exit(EXIT_FAILURE);
@@ -51,17 +51,21 @@ int main(int argc, char const* argv[])
         perror("accept");
         exit(EXIT_FAILURE);
     }
+
+    //HERE FOR THINGS
+    while(1){
+
     valread = read(new_socket, buffer,
                    1024 - 1); // subtract 1 for the null
                               // terminator at the end
     printf("%s\n", buffer);
-    send(new_socket, hello, strlen(hello), 0);
-    printf("Hello message sent\n");
-	}
+    //send(new_socket, hello, strlen(hello), 0);
+
     // closing the connected socket
-    close(new_socket);
+//    close(new_socket);
     // closing the listening socket
-    close(server_fd);
+//    close(server_fd);
+  }
     return 0;
 }
 /*#include <sys/types.h>
