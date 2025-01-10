@@ -39,6 +39,7 @@ int main(int argc, char const* argv[])
         perror("bind failed");
         exit(EXIT_FAILURE);
     }
+	while(1){
     if (listen(server_fd, 3) < 0) {
         perror("listen");
         exit(EXIT_FAILURE);
@@ -56,7 +57,7 @@ int main(int argc, char const* argv[])
     printf("%s\n", buffer);
     send(new_socket, hello, strlen(hello), 0);
     printf("Hello message sent\n");
-
+	}
     // closing the connected socket
     close(new_socket);
     // closing the listening socket
