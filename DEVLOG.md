@@ -11,9 +11,14 @@ Made random number generator works, added semaphores and shared memory headers i
 Copied over networking part, tweaked in order to try to get lobby to work - 30 mins
 Started making semaphores for the chatting portion of the game - 30 mins
 
-### 2024-01-08 - Made makefile, trying to learn sockets
+### 2024-01-08 - Made makefile, trying to learn sockets, played with sockets
 Makefile - 10 minutes
-Socket Learning - 1 hour
+Learned socket syntax and comprehending networking-ish (created basic server/client connection with sockets) - 1 hr
+
+### 2024-01-08 - Sockets & Select
+Trying to fix bug where client has some garbage at the end of each handshake - 10 mins
+Even more socket syntax and fixing some previous file descriptor/socket descriptor bug - 20 mins
+Literally read select demo code and did not understand most of it - 30 mins
 
 ## Player 2
 
