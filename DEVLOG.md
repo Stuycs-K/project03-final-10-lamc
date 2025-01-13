@@ -25,6 +25,18 @@ Literally read select demo code and did not understand most of it - 30 mins
 Identified & fixed problems with forking server and when multiple clients try to connect to main server - 30 mins
 Still cannot fix bug where client's are reading each others' garbage (probably reading/writing too many bytes but I cannot find the source) - 30 mins 
 
+### 2024-01-12 - Client + Socket forking + selection being able to read from multiple socket descriptors 
+Fixed reading garbage (forgot to reset buffer after each iteration) - 20 mins
+Created 2 x 100 socket descriptor array to fill with new clients, added client sockets to read_fps for select preperations - 1 hour
+Cleaned up socket code on the server side, implemenetd forking server when both indicies are filled and reading clients stdin - 1 hour 
+Basically just copied all of selects syntax and played around with it until it worked on server side - 2 hours
+Above but for client - 30 mins 
+Implemented setsockopt() to fix "bind failed: Address already in use" - 5 mins
+Fixed bug where server stalls on resetting read_fps - 30 mins
+Fixed bug where clients would incorrectly display what they wrote to each other (I didn't fflush) - 15 mins
+
+
+
 ## Player 2
 
 ### 2024-01-02 - Brief description
