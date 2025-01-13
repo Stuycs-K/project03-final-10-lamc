@@ -83,13 +83,9 @@ int main() {
                         char buffer[1024];
                         printf("Subserver created for clients %d and %d\n", client1, client2);
 						while (1) {
-							printf("a\n");
                             FD_ZERO(&read_fds);
-							printf("a\n");
                             FD_SET(client1, &read_fds);
-							printf("a\n");
                             FD_SET(client2, &read_fds);
-							printf("a\n");
 							//I need this refrence for ternary operators (select the smallest and add one to it)
                             select((client1 > client2 ? client1 : client2) + 1, &read_fds, NULL, NULL, NULL);
 							printf("a\n");
@@ -99,7 +95,6 @@ int main() {
 									break;
 								}
                                 send(client2, buffer, strlen(buffer), 0);
-								printf("hi\n");
                             }
                             if (FD_ISSET(client2, &read_fds)) {
                                 bzero(buffer, 1024);
@@ -107,7 +102,6 @@ int main() {
 									break;
 								}									
                                 send(client1, buffer, strlen(buffer), 0);
-								printf("hi\n");
 
                             }
                         }
