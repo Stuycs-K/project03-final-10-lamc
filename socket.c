@@ -12,7 +12,7 @@ int main() {
     int server_fd, client_socket, max_sd, sd, activity;
     struct sockaddr_in address;
     fd_set read_fds;
-    socklen_t addrlen = sizeof(address);   
+    socklen_t addrlen = sizeof(address);
     // Create server socket
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
         perror("socket failed");
@@ -75,11 +75,16 @@ int main() {
                 } else if (socket_descriptors[i][1] == 0) {
                     socket_descriptors[i][1] = client_socket;
                     //Fork subserver when there is a pair
-					pid_t p = fork();
+					          pid_t p = fork();
                     if (p == 0) { //child
                         close(server_fd); // Child doesn't need the listening socket
                         int client1 = socket_descriptors[i][0];
                         int client2 = socket_descriptors[i][1];
+                        //Handshake with clients
+                        char bufferA[10] = "A";
+                        char bufferB[10] = "B";
+                        send(client1, "A", strlen(bufferA), 0);
+                        send(client2, "B", strlen(bufferB), 0);
                         char buffer[1024];
                         printf("Subserver created for clients %d and %d\n", client1, client2);
 						while (1) {
@@ -99,7 +104,7 @@ int main() {
                                 bzero(buffer, 1024);
                                 if (read(client2, buffer, 1024) <= 0){
 									break;
-								}									
+								}
                                 send(client1, buffer, strlen(buffer), 0);
                             }
                         }
@@ -111,7 +116,7 @@ int main() {
 					if(p == 1){ //Parent
 						break;
 					}
-                    
+
                 }
             }
         }

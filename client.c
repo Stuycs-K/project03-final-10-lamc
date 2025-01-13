@@ -28,7 +28,15 @@ int main() {
         perror("Connection failed");
         return -1;
     }
-    printf("Connected to server.\n");
+    printf("Connected to server. Please wait for another player...\n");
+
+    //Handshake w/ server to ensure connection with another client
+    char bufferServer[10];
+    if(read(client_fd, bufferServer, sizeof(bufferServer) - 1) <= 0){
+      //error handling
+    }
+    printf("Client found! You will have 10 seconds to to discuss! \n");
+
     // Main loop
     while (1) {
         FD_ZERO(&read_fds);
@@ -41,6 +49,7 @@ int main() {
             perror("select error");
             break;
         }
+
         // Handle input from the socket (incoming messages)
         if (FD_ISSET(client_fd, &read_fds)) {
             bzero(buffer, sizeof(buffer));
@@ -49,7 +58,7 @@ int main() {
                 printf("Disconnected from server.\n");
                 break;
             }
-				printf("\rThem: %s\n", buffer); // Print message
+				printf("Them: %s\n", buffer); // Print message
 				printf("You: ");                  // Redisplay prompt
 				fflush(stdout);
         }
