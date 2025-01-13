@@ -7,6 +7,7 @@
 #define PORT 8080
 int main(int argc, char const* argv[])
 {
+	int socket_descriptors[100][2];
     int server_fd, new_socket;
     ssize_t valread;
     struct sockaddr_in address;
@@ -51,7 +52,36 @@ int main(int argc, char const* argv[])
         perror("accept");
         exit(EXIT_FAILURE);
     }
+	
+	//Add socket to socket descriptor array
+	for(int i = 0; i < 100; i++){
+		for(int j = 0; j < 2; j++){
+			if (socket_descriptors[i][j]){
+				socket_descriptors[i][j] = server_fd;
+			}
+		}
+	}
 
+	//Select testing
+	while(1){
+		fd_set read_fds;
+		FD_ZERO(&read_fds);
+		FD_SET(server_fd, &read_fds);
+		FD_SET(STDIN_FILENO, &read_fds);
+		int i = select(server_fd+1, &read_fds, NULL, NULL, NULL);
+	//if standard in, use fgets
+	if (FD_ISSET(STDIN_FILENO, &read_fds)) {
+		fgets(buffer, sizeof(buffer), stdin);
+    printf("%ld\n", sizeof(buffer));
+    printf("%ld\n", strlen(buffer));
+    printf("%s\n", buffer);
+	}
+	//if socket, accept the connection
+	//assume this function works correctly
+	//if (FD_ISSET(server_fd, &read_fds)) {
+		//client_socket = server_connect(server_fd);
+	//}
+}
     //HERE FOR THINGS
     while(1){
 	bzero(buffer,1024);
