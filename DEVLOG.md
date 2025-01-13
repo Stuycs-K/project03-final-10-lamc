@@ -2,18 +2,38 @@
 
 This document must be updated daily by EACH group member.
 
-## Player 1
+## Chris Lam
 
-### 2024-01-02 - Brief description
-Expanded description including how much time was spent on task.
+### 2024-01-06 - Created skeleton files for the game, added pseudocode to each function
+Getting Started - 45 mins
 
-### 2024-01-03 - Brief description
-Expanded description including how much time was spent on task.
+### 2024-01-07 - Copied my networking code from previous lab, started importing shared memory and semaphores
+Made random number generator works, added semaphores and shared memory headers in gamble.h  - 5 mins
+Copied over networking part, tweaked in order to try to get lobby to work - 30 mins
+Started making semaphores for the chatting portion of the game - 30 mins
 
-## Player 2
+### 2024-01-08 - Made makefile, trying to learn sockets, played with sockets
+Makefile - 10 minutes
+Learned socket syntax and comprehending networking-ish (created basic server/client connection with sockets) - 1 hr
 
-### 2024-01-02 - Brief description
-Expanded description including how much time was spent on task.
+### 2024-01-09 - Sockets & Select (made new branch)
+Trying to fix bug where client has some garbage at the end of each handshake - 10 mins
+Even more socket syntax and fixing some previous file descriptor/socket descriptor bug - 20 mins
+Literally read select demo code and did not understand most of it - 30 mins
 
-### 2024-01-03 - Brief description
-Expanded description including how much time was spent on task.
+### 2024-01-10 - Debugging
+Identified & fixed problems with forking server and when multiple clients try to connect to main server - 30 mins
+Still cannot fix bug where client's are reading each others' garbage (probably reading/writing too many bytes but I cannot find the source) - 30 mins
+
+### 2024-01-12 - Total redesign of previous networking, Client + Socket selecting, server forking + selection being able to read from multiple socket descriptors
+Fixed reading garbage (forgot to reset buffer after each iteration) - 20 mins
+Created 2 x 100 socket descriptor array to fill with new clients, added client sockets to read_fps for select preperations - 1 hour
+Cleaned up socket code on the server side, implemenetd forking server when both indicies are filled and reading clients stdin - 1 hour
+Basically just copied all of selects syntax and played around with it until it worked on server side - 2 hours
+Above but for client - 30 mins
+Implemented setsockopt() to fix "bind failed: Address already in use" - 5 mins
+Fixed bug where server stalls on resetting read_fps - 30 mins
+Fixed bug where clients would incorrectly display what they wrote to each other (I didn't fflush) - 15 mins
+
+### 2024-01-13 - Logistical things + Debugging
+Added DEVLOG to main branch - 1 min
