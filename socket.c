@@ -76,7 +76,7 @@ int main() {
                     socket_descriptors[i][1] = client_socket;
                     //Fork subserver when there is a pair
 					pid_t p = fork();
-                    if (p == 0) {
+                    if (p == 0) { //child
                         close(server_fd); // Child doesn't need the listening socket
                         int client1 = socket_descriptors[i][0];
                         int client2 = socket_descriptors[i][1];

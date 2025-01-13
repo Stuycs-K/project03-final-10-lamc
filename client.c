@@ -14,12 +14,9 @@ int main(int argc, char const* argv[])
         printf("\n Socket creation error \n");
         return -1;
     }
-
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
-
-    // Convert IPv4 and IPv6 addresses from text to binary
-    // form
+    // Convert IPv4 and IPv6 addresses from text to binary form
     if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)
         <= 0) {
         printf(
@@ -33,23 +30,25 @@ int main(int argc, char const* argv[])
         printf("\nConnection Failed \n");
         return -1;
     }
-
+	//Legit just exist and hope server does everything
     //Create buffer, get user input
-    char user_input[1024];
-    char* hello = "Hello from client";
-while(1){
-  bzero(user_input,1024);
-  fgets(user_input,1024,stdin);
-  printf("USER_INPUT: %s\n", user_input);
-  send(client_fd, user_input, strlen(user_input), 0);
-  //memset(user_input, '\0',strlen(user_input));
-}
+   /* char user_input[1024];
+	while(1){
+		bzero(user_input,1024);
+		fgets(user_input,1024,stdin);
+		printf("USER_INPUT: %s\n", user_input);
+		send(client_fd, user_input, strlen(user_input), 0);
+	//memset(user_input, '\0',strlen(user_input));	
+	}
+*/
+	while(1){
+		valread = read(client_fd, buffer, 1024 - 1); // subtract 1 for the null
+		// terminator at the end
+		printf("%s\n", buffer);
+	}
 
-    //valread = read(client_fd, buffer, 1024 - 1); // subtract 1 for the null
-    // terminator at the end
-    //printf("%s\n", user_input);
 
-    // closing the connected socket
-    close(client_fd);
-    return 0;
+   // closing the connected socket
+   // close(client_fd);
+   //return 0;
 }
