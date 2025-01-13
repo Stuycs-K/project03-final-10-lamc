@@ -49,11 +49,11 @@ int main() {
                 printf("Disconnected from server.\n");
                 break;
             }
-			/*
-				printf("\rServer: %s\n", buffer); // Print message
+			
+				printf("\rThem: %s\n", buffer); // Print message
 				printf("You: ");                  // Redisplay prompt
 				fflush(stdout);
-			*/
+			
         }
         // Handle input from stdin (user input)
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {

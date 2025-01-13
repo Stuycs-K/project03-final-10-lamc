@@ -19,11 +19,11 @@ int main() {
         exit(EXIT_FAILURE);
     }
     // Set socket options
-    int opt = 1;
-    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
-        perror("setsockopt");
-        exit(EXIT_FAILURE);
-    }
+	int opt = 1;
+	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
+		perror("setsockopt failed");
+		exit(EXIT_FAILURE);
+	}
     // Bind socket to port
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
