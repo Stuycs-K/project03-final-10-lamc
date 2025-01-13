@@ -88,7 +88,6 @@ int main() {
                             FD_SET(client2, &read_fds);
 							//I need this refrence for ternary operators (select the smallest and add one to it)
                             select((client1 > client2 ? client1 : client2) + 1, &read_fds, NULL, NULL, NULL);
-							printf("a\n");
                             if (FD_ISSET(client1, &read_fds)) {
                                 bzero(buffer, 1024);
                                 if (read(client1, buffer, 1024) <= 0){
@@ -102,7 +101,6 @@ int main() {
 									break;
 								}									
                                 send(client1, buffer, strlen(buffer), 0);
-
                             }
                         }
                         close(client1);
