@@ -45,7 +45,7 @@ while(1){
   //memset(user_input, '\0',strlen(user_input));
 }
 
-    valread = read(client_fd, buffer, 1024 - 1); // subtract 1 for the null
+    //valread = read(client_fd, buffer, 1024 - 1); // subtract 1 for the null
     // terminator at the end
     //printf("%s\n", user_input);
 

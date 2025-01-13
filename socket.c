@@ -54,10 +54,12 @@ int main(int argc, char const* argv[])
 
     //HERE FOR THINGS
     while(1){
-
+	bzero(buffer,1024);
     valread = read(new_socket, buffer,
                    1024 - 1); // subtract 1 for the null
                               // terminator at the end
+    printf("%ld\n", sizeof(buffer));
+    printf("%ld\n", strlen(buffer));
     printf("%s\n", buffer);
     //send(new_socket, hello, strlen(hello), 0);
 
