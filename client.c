@@ -4,6 +4,7 @@
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <time.h>
 #define PORT 8080
 
 void redraw_prompt() {
@@ -42,8 +43,9 @@ int main() {
     }
     printf("Client found! You will have 10 seconds to to discuss! \n");
     redraw_prompt();
-    // Main loop
-    while (1) {
+    // Dicussion time
+    time_t end = time(NULL) + 10;
+    while (time(NULL) < end) {
         FD_ZERO(&read_fds);
         FD_SET(client_fd, &read_fds);
         FD_SET(STDIN_FILENO, &read_fds);
@@ -55,8 +57,15 @@ int main() {
             break;
         }
 
+        // debug CODE *********************************************************
+        printf("%ld, %ld \n", time(NULL), end);
+
         // Handle input from the socket (incoming messages)
         if (FD_ISSET(client_fd, &read_fds)) {
+          //IF TIME IS UP BREAK OUT OF LOOP
+          if(time(NULL) > end){
+            break;
+          }
             bzero(buffer, sizeof(buffer));
             ssize_t valread = read(client_fd, buffer, sizeof(buffer) - 1);
             if (valread <= 0) {
@@ -68,8 +77,12 @@ int main() {
         }
         // Handle input from stdin (user input)
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {
+          //IF TIME IS UP BREAK OUT OF LOOP
+          if(time(NULL) > end){
+            break;
+          }
             bzero(buffer, sizeof(buffer));
-            if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            if (fgets(buffer, sizeof(buffer), std in) == NULL) {
                 printf("Error reading input.\n");
                 break;
             }

@@ -87,6 +87,7 @@ int main() {
                         send(client2, "B", strlen(bufferB), 0);
                         char buffer[1024];
                         printf("Subserver created for clients %d and %d\n", client1, client2);
+            
 						while (1) {
                             FD_ZERO(&read_fds);
                             FD_SET(client1, &read_fds);
@@ -110,6 +111,9 @@ int main() {
                         }
                         close(client1);
                         close(client2);
+                        //Free after they exit
+                        socket_descriptors[i][0] = 0;
+                        socket_descriptors[i][1] = 0;
 						//Done with game
                         exit(0);
                     }
