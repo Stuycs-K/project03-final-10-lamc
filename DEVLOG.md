@@ -35,5 +35,7 @@ Implemented setsockopt() to fix "bind failed: Address already in use" - 5 mins
 Fixed bug where server stalls on resetting read_fps - 30 mins
 Fixed bug where clients would incorrectly display what they wrote to each other (I didn't fflush) - 15 mins
 
-### 2024-01-13 - Logistical things + Debugging
+### 2024-01-13 - Logistics 
 Added DEVLOG to main branch - 1 min
+Made client to client communication easier by prompting each user and displaying information correctly - 1 hour
+Made while loop timer and cleaned up gamble.c - 30 mins 
