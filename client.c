@@ -6,6 +6,11 @@
 #include <unistd.h>
 #define PORT 8080
 
+void redraw_prompt() {
+    printf("\rYou: ");
+    fflush(stdout);
+}
+
 int main() {
     int client_fd;
     struct sockaddr_in serv_addr;
@@ -36,7 +41,7 @@ int main() {
       //error handling
     }
     printf("Client found! You will have 10 seconds to to discuss! \n");
-
+    redraw_prompt();
     // Main loop
     while (1) {
         FD_ZERO(&read_fds);
@@ -58,9 +63,8 @@ int main() {
                 printf("Disconnected from server.\n");
                 break;
             }
-				printf("Them: %s\n", buffer); // Print message
-				printf("You: ");                  // Redisplay prompt
-				fflush(stdout);
+        printf("\nThem: %s", buffer); // Print message
+        redraw_prompt();
         }
         // Handle input from stdin (user input)
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {
@@ -74,6 +78,7 @@ int main() {
                 perror("Failed to send message");
                 break;
             }
+            redraw_prompt();
         }
     }
 
