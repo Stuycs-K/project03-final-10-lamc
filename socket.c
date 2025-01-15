@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <sys/select.h>
 #include <unistd.h>
+#include "gamble.c"
 #define PORT 8080
 
 int main() {
@@ -71,7 +72,7 @@ int main() {
             for (int i = 0; i < 100; i++) {
                 if (socket_descriptors[i][0] == 0) {
                     socket_descriptors[i][0] = client_socket;
-                    printf("i: %d\n", i);
+                    printf("%d\n", i);
                     break;
                 } else if (socket_descriptors[i][1] == 0) {
                     socket_descriptors[i][1] = client_socket;
@@ -82,10 +83,9 @@ int main() {
                         int client1 = socket_descriptors[i][0];
                         int client2 = socket_descriptors[i][1];
                         //Handshake with clients
-                        char bufferA[10] = "A";
-                        char bufferB[10] = "B";
-                        send(client1, "A", strlen(bufferA), 0);
-                        send(client2, "B", strlen(bufferB), 0);
+                        int prize = create_prize();
+                        send(client1, &prize, sizeof(prize), 0);
+                        send(client2, &prize, sizeof(prize), 0);
                         char buffer[1024];
                         printf("Subserver created for clients %d and %d in position %d\n", client1, client2, i);
 
@@ -93,7 +93,7 @@ int main() {
                             FD_ZERO(&read_fds);
                             FD_SET(client1, &read_fds);
                             FD_SET(client2, &read_fds);
-							//I need this refrence for ternary operators (select the smallest and add one to it)
+							//I need this refrence for ternary operators (se lect the smallest and add one to it)
                             select((client1 > client2 ? client1 : client2) + 1, &read_fds, NULL, NULL, NULL);
                             if (FD_ISSET(client1, &read_fds)) {
                                 bzero(buffer, 1024);

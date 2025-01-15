@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <time.h>
+#include "gamble.c"
 #define PORT 8080
 
 void redraw_prompt() {
@@ -24,7 +25,7 @@ int main() {
     }
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
-    // Address address
+    // Address gibberish
     if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0) {
         perror("Invalid address");
         return -1;
@@ -36,16 +37,18 @@ int main() {
     }
     printf("Connected to server. Please wait for another player...\n");
 
-    //Handshake w/ server to ensure connection with another client
-    char bufferServer[10];
+    //Handshake w/ server to ensure connection with another client + MAKE PRIZE
+    int prize;
     if(read(client_fd, bufferServer, sizeof(bufferServer) - 1) <= 0){
       perror("Hankshake failed");
       return -1;
     }
-    printf("Client found! You will have 10 seconds to to discuss! \n");
+    printf("Client found! \n");
+    printf("Welcome to multiplayer gambling! The total prize pool is: %d. You will have 10 seconds to to discuss! \n", prize);
+
     redraw_prompt();
     // Dicussion time
-    time_t end = time(NULL) + 2;
+    time_t end = time(NULL) + 10;
     while (time(NULL) < end) {
         FD_ZERO(&read_fds);
         FD_SET(client_fd, &read_fds);
@@ -101,6 +104,9 @@ int main() {
 
         }
     }
+
+    //FINAL DECISION HERE
+    //final_decision();
 
     // Close the socket
     close(client_fd);
