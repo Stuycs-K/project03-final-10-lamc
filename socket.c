@@ -71,6 +71,7 @@ int main() {
             for (int i = 0; i < 100; i++) {
                 if (socket_descriptors[i][0] == 0) {
                     socket_descriptors[i][0] = client_socket;
+                    printf("i: %d\n", i);
                     break;
                 } else if (socket_descriptors[i][1] == 0) {
                     socket_descriptors[i][1] = client_socket;
@@ -86,7 +87,7 @@ int main() {
                         send(client1, "A", strlen(bufferA), 0);
                         send(client2, "B", strlen(bufferB), 0);
                         char buffer[1024];
-                        printf("Subserver created for clients %d and %d\n", client1, client2);
+                        printf("Subserver created for clients %d and %d in position %d\n", client1, client2, i);
 
 						while (1) {
                             FD_ZERO(&read_fds);
@@ -112,14 +113,13 @@ int main() {
                         close(client1);
                         close(client2);
                         //printf("Subserver exiting for clients %d and %d\n", socket_descriptors[i][0], socket_descriptors[i][1]);
-                        //Free array
-                        socket_descriptors[i][0] = 0;
-                        socket_descriptors[i][1] = 0;
 
 						//Done with game
                         exit(0);
                     }
-
+                    //Free array
+                    socket_descriptors[i][0] = 0;
+                    socket_descriptors[i][1] = 0;
             break;
 
                 }

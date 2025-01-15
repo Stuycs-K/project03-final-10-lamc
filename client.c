@@ -45,7 +45,7 @@ int main() {
     printf("Client found! You will have 10 seconds to to discuss! \n");
     redraw_prompt();
     // Dicussion time
-    time_t end = time(NULL) + 10;
+    time_t end = time(NULL) + 2;
     while (time(NULL) < end) {
         FD_ZERO(&read_fds);
         FD_SET(client_fd, &read_fds);
@@ -76,7 +76,7 @@ int main() {
                 printf("Disconnected from server.\n");
                 break;
             }
-        printf("Them: %s", buffer); // Print message
+        printf("\n  Them: %s", buffer); // Print message
         redraw_prompt();
         }
         // Handle input from stdin (user input)
