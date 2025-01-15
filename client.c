@@ -26,7 +26,7 @@ int main() {
     serv_addr.sin_port = htons(PORT);
     // Address address
     if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0) {
-        perror("Invalid address/ Address not supported");
+        perror("Invalid address");
         return -1;
     }
     // Connect to server
@@ -39,7 +39,8 @@ int main() {
     //Handshake w/ server to ensure connection with another client
     char bufferServer[10];
     if(read(client_fd, bufferServer, sizeof(bufferServer) - 1) <= 0){
-      //error handling
+      perror("Hankshake failed");
+      return -1;
     }
     printf("Client found! You will have 10 seconds to to discuss! \n");
     redraw_prompt();
@@ -51,14 +52,17 @@ int main() {
         FD_SET(STDIN_FILENO, &read_fds);
         int max_fd = (client_fd > STDIN_FILENO) ? client_fd : STDIN_FILENO;
         // Wait for activity on socket or stdin
-        int activity = select(max_fd + 1, &read_fds, NULL, NULL, NULL);
+        struct timeval timeout;
+        timeout.tv_sec = end - time(NULL);
+        timeout.tv_usec = 0;
+        int activity = select(max_fd + 1, &read_fds, NULL, NULL, &timeout);
         if (activity < 0) {
             perror("select error");
             break;
         }
 
         // debug CODE *********************************************************
-        printf("%ld, %ld \n", time(NULL), end);
+      //  printf("%ld, %ld \n", time(NULL), end);
 
         // Handle input from the socket (incoming messages)
         if (FD_ISSET(client_fd, &read_fds)) {
@@ -72,26 +76,29 @@ int main() {
                 printf("Disconnected from server.\n");
                 break;
             }
-        printf("\nThem: %s", buffer); // Print message
+        printf("Them: %s", buffer); // Print message
         redraw_prompt();
         }
         // Handle input from stdin (user input)
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {
-          //IF TIME IS UP BREAK OUT OF LOOP
-          if(time(NULL) > end){
-            break;
-          }
             bzero(buffer, sizeof(buffer));
-            if (fgets(buffer, sizeof(buffer), std in) == NULL) {
+            ssize_t valread = read(STDIN_FILENO, buffer, sizeof(buffer) - 1);
+            if (valread){
+              buffer[valread] = '\0';
+              if (send(client_fd, buffer, strlen(buffer), 0) <= 0) {
+                  perror("Failed to send message");
+                  break;
+              }
+              redraw_prompt();
+            }
+            /*
+            if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
                 printf("Error reading input.\n");
                 break;
             }
+            */
             // Send user input to the server
-            if (send(client_fd, buffer, strlen(buffer), 0) <= 0) {
-                perror("Failed to send message");
-                break;
-            }
-            redraw_prompt();
+
         }
     }
 
