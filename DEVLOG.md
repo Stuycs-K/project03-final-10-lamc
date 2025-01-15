@@ -39,3 +39,10 @@ Fixed bug where clients would incorrectly display what they wrote to each other 
 Added DEVLOG to main branch - 1 min
 Made client to client communication easier by prompting each user and displaying information correctly - 1 hour
 Made while loop timer and cleaned up gamble.c - 30 mins 
+
+### 2024-01-14 - Logistics part 2 + Timer works
+Found bug where timer doesn't work and tried to fix - 25 mins
+Found bug where if clients connceted to server and left, and then tried connecting again the sockets would break - 15 mins
+Fixed timer by replacing fgets() with read - 20 mins
+Fixed networking by resetting the array of socket descriptors after every iteration - 15 mins
+Implemented timer into clients - 30 mins
