@@ -1,3 +1,4 @@
+//GROUP ID = 32
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <string.h>
@@ -50,7 +51,7 @@ int main() {
       return -1;
     } */
     printf("Client found! \n");
-    printf("Welcome to multiplayer gambling! You will have 10 seconds to to discuss! \n");
+    printf("Welcome to multiplayer gambling! You will have 10 seconds to discuss! \n");
 
     redraw_prompt();
     // Dicussion time
@@ -111,10 +112,18 @@ int main() {
         }
     }
 
-    //PRIZE
-
-
     //FINAL DECISION HERE
+    char buffer_decision[150];
+    printf("Times up! Now make your decision (type steal/split)\n");
+    if(read(STDIN_FILENO, buffer_decision, sizeof(buffer_decision)) <= 0){
+      perror("Hankshake failed");
+      return -1;
+    }
+    if (send(client_fd, buffer_decision, strlen(buffer_decision), 0) <= 0) {
+        perror("Failed to send message");
+    }
+    //READ
+    printf("DEBUG STRING LINE 127\n");
     //final_decision();
     close(client_fd);
     // Close the socket

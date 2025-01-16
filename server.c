@@ -114,7 +114,9 @@ int main() {
                                 send(client1, buffer, strlen(buffer), 0);
                             }
                         }
-                        //Create Prize
+                        //Decision processing 
+                        char bufferA_decision[100];
+                        char bufferB_decision[100];
 
                         //printf("Subserver exiting for clients %d and %d\n", socket_descriptors[i][0], socket_descriptors[i][1]);
 
