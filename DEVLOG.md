@@ -46,3 +46,8 @@ Found bug where if clients connceted to server and left, and then tried connecti
 Fixed timer by replacing fgets() with read - 20 mins
 Fixed networking by resetting the array of socket descriptors after every iteration - 15 mins
 Implemented timer into clients - 30 mins
+
+### 2024-01-15 - Logistics part 3 + Combined chris and socket branches + Prize bug fix
+Found bug where clients read the prize amount as user input and fixed it - 30 mins
+Imported gamble.c from chris branch into socket branch and shrinked prize size - 30 mins 
+Turned inital handshake into prize extrpolation from servers - 15 mins
