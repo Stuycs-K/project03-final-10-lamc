@@ -24,6 +24,7 @@ int create_prize(){
     exit(1);
   }
   close(fd);
+  data = abs(data) % 10001;
   return data;
 }
 
