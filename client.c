@@ -37,14 +37,20 @@ int main() {
     }
     printf("Connected to server. Please wait for another player...\n");
 
-    //Handshake w/ server to ensure connection with another client + MAKE PRIZE
+    //Handshake w/ server to ensure connection with another client
     int prize;
-    if(read(client_fd, bufferServer, sizeof(bufferServer) - 1) <= 0){
+    if(read(client_fd, &prize, sizeof(prize)) <= 0){
       perror("Hankshake failed");
       return -1;
     }
+    printf("The total prize pool is: %d\n", prize);
+    /*char bufferServer[10];
+    if(read(client_fd, bufferServer, sizeof(bufferServer) - 1) <= 0){
+      perror("Hankshake failed");
+      return -1;
+    } */
     printf("Client found! \n");
-    printf("Welcome to multiplayer gambling! The total prize pool is: %d. You will have 10 seconds to to discuss! \n", prize);
+    printf("Welcome to multiplayer gambling! You will have 10 seconds to to discuss! \n");
 
     redraw_prompt();
     // Dicussion time
@@ -79,7 +85,7 @@ int main() {
                 printf("Disconnected from server.\n");
                 break;
             }
-        printf("\n  Them: %s", buffer); // Print message
+        printf("\nThem: %s", buffer); // Print message
         redraw_prompt();
         }
         // Handle input from stdin (user input)
@@ -105,10 +111,12 @@ int main() {
         }
     }
 
+    //PRIZE
+
+
     //FINAL DECISION HERE
     //final_decision();
-
-    // Close the socket
     close(client_fd);
+    // Close the socket
     return 0;
 }

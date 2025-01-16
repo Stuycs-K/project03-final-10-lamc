@@ -84,8 +84,12 @@ int main() {
                         int client2 = socket_descriptors[i][1];
                         //Handshake with clients
                         int prize = create_prize();
-                        send(client1, &prize, sizeof(prize), 0);
-                        send(client2, &prize, sizeof(prize), 0);
+                        send(client1, &prize, 4, 0);
+                        send(client2, &prize, 4, 0);
+                      //  char bufferA[10] = "A";
+                      //  char bufferB[10] = "B";
+                    //    send(client1, "A", strlen(bufferA), 0);
+                      //  send(client2, "B", strlen(bufferB), 0);
                         char buffer[1024];
                         printf("Subserver created for clients %d and %d in position %d\n", client1, client2, i);
 
@@ -110,8 +114,8 @@ int main() {
                                 send(client1, buffer, strlen(buffer), 0);
                             }
                         }
-                        close(client1);
-                        close(client2);
+                        //Create Prize
+
                         //printf("Subserver exiting for clients %d and %d\n", socket_descriptors[i][0], socket_descriptors[i][1]);
 
 						//Done with game
