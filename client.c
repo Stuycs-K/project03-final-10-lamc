@@ -113,15 +113,22 @@ int main() {
     }
 
     //FINAL DECISION HERE
-    char buffer_decision[150];
+    char buffer_decision[100];
+    char other_buffer_decision[100];
     printf("Times up! Now make your decision (type steal/split)\n");
     if(read(STDIN_FILENO, buffer_decision, sizeof(buffer_decision)) <= 0){
-      perror("Hankshake failed");
+      perror("Decision failed");
       return -1;
     }
     if (send(client_fd, buffer_decision, strlen(buffer_decision), 0) <= 0) {
         perror("Failed to send message");
     }
+    ;
+    if(read(client_fd, other_buffer_decision, sizeof(other_buffer_decision)) <= 0){
+      perror("Other decision failed");
+      return -1;
+    }
+    printf("Other buffer decision: %s\n", other_buffer_decision);
     //READ
     printf("DEBUG STRING LINE 127\n");
     //final_decision();
