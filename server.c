@@ -70,10 +70,10 @@ int main() {
 
             // Add client to the first available slot in `socket_descriptors`
             for (int i = 0; i < 100; i++) {
-                if (socket_descriptors[i][0] == 0) {
+                if (socket_descriptors[i][0] == 0) { //THERE IS A bug here deal with this later 
                     socket_descriptors[i][0] = client_socket;
-                    printf("%d\n", i);
-                    break;
+                    //Debug statemen: printf("%d\n", i);
+                  break;
                 } else if (socket_descriptors[i][1] == 0) {
                     socket_descriptors[i][1] = client_socket;
                     //Fork subserver when there is a pair

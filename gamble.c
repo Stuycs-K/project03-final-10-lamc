@@ -28,4 +28,26 @@ int create_prize(){
   return data;
 }
 
+//void handle_decision(char decisionA[50], char decisionB[50], double prize, int whoAmI){
+  void handle_decision(char decisionA[50], char decisionB[50], double prize){
+  decisionA[strlen(decisionA) - 1] = '\0';
+  decisionB[strlen(decisionB) - 1] = '\0';
+  if(strcmp(decisionA, decisionB) == 0){
+    printf("decisonA: %s\n", decisionB);
+    printf("decisonB: %s\n", decisionB);
+    prize /= 2;
+    if(strcmp(decisionA, "split") == 0){
+      printf("You both split! You both won $%f\n", prize);
+    }else{
+      printf("You both stole! You both lost $%f\n", prize);
+    }
+  }else{
+    if(strcmp(decisionA, "split")){
+      printf("You split but your opponent stole! You were robbed of $%f\n", prize);
+    }else{
+      printf("You stole and your opponent split! You robbed of $%f\n", prize);
+    }
+  }
+}
+
 //debug
