@@ -40,14 +40,21 @@ Added DEVLOG to main branch - 1 min
 Made client to client communication easier by prompting each user and displaying information correctly - 1 hour
 Made while loop timer and cleaned up gamble.c - 30 mins 
 
-### 2024-01-14 - Logistics part 2 + Timer works
+### 2024-01-14 - Logistics part 2 + Mader Timer
 Found bug where timer doesn't work and tried to fix - 25 mins
 Found bug where if clients connceted to server and left, and then tried connecting again the sockets would break - 15 mins
 Fixed timer by replacing fgets() with read - 20 mins
 Fixed networking by resetting the array of socket descriptors after every iteration - 15 mins
 Implemented timer into clients - 30 mins
 
-### 2024-01-15 - Logistics part 3 + Combined chris and socket branches + Prize bug fix
+### 2024-01-15 - Debugging + Combined chris and socket branches
 Found bug where clients read the prize amount as user input and fixed it - 30 mins
 Imported gamble.c from chris branch into socket branch and shrinked prize size - 30 mins 
 Turned inital handshake into prize extrpolation from servers - 15 mins
+
+### 2024-01-16 - Wrote up Final Decision Component  
+Turned socket.c to server.c to setup a timer in server, updated makefile to account for difference - 30 mins
+Set up timer and get specific input from user for final decision - 30 mins
+Made a stopping system after 10 seconds and each client only reads one input afterwards (for now it is limited to steal or split) - 30 mins
+Allowed clients to display in unison what the other client typed - 10 mins 
+Fixed bug where displayed messages would be read on the other clients - 15 mins
