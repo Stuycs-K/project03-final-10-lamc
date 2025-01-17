@@ -55,7 +55,7 @@ int main() {
 
     redraw_prompt();
     // Dicussion time
-    time_t end = time(NULL) + 10;
+    time_t end = time(NULL) + 100;
     while (time(NULL) < end) {
         FD_ZERO(&read_fds);
         FD_SET(client_fd, &read_fds);
@@ -130,6 +130,7 @@ int main() {
     }
     printf("Other buffer decision: %s\n", other_buffer_decision);
     //READ
+    handle_decision(buffer_decision, other_buffer_decision, prize);
     printf("DEBUG STRING LINE 127\n");
     //final_decision();
     close(client_fd);
