@@ -92,8 +92,16 @@ int main() {
                       //  send(client2, "B", strlen(bufferB), 0);
                         char buffer[1024];
                         printf("Subserver created for clients %d and %d in position %d\n", client1, client2, i);
-
+                        time_t end_talking = time(NULL) + 10;
 						while (1) {
+                          if((strcmp(buffer, "steal") == 0 || strcmp(buffer, "split")) && end_talking < time(NULL)){
+                            send(client1, buffer, strlen(buffer), 0);
+                            send(client2, buffer, strlen(buffer), 0);
+                            break;
+                          }
+                          //Server internal timer
+                          //Decision processing
+
                             FD_ZERO(&read_fds);
                             FD_SET(client1, &read_fds);
                             FD_SET(client2, &read_fds);
@@ -114,9 +122,6 @@ int main() {
                                 send(client1, buffer, strlen(buffer), 0);
                             }
                         }
-                        //Decision processing 
-                        char bufferA_decision[100];
-                        char bufferB_decision[100];
 
                         //printf("Subserver exiting for clients %d and %d\n", socket_descriptors[i][0], socket_descriptors[i][1]);
 
