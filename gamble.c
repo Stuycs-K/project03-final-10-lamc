@@ -37,15 +37,15 @@ int create_prize(){
     printf("decisonB: %s\n", decisionB);
     prize /= 2;
     if(strcmp(decisionA, "split") == 0){
-      printf("You both split! You both won $%f\n", prize);
+      printf("You both split! You both won $%.2f\n", prize);
     }else{
-      printf("You both stole! You both lost $%f\n", prize);
+      printf("You both stole! You both lost $%.2f\n", prize);
     }
   }else{
     if(strcmp(decisionA, "split")){
-      printf("You split but your opponent stole! You were robbed of $%f\n", prize);
+      printf("You split but your opponent stole! You were robbed of $%.2f\n", prize);
     }else{
-      printf("You stole and your opponent split! You robbed of $%f\n", prize);
+      printf("You stole and your opponent split! You robbed of $%.2f\n", prize);
     }
   }
 }

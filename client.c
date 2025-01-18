@@ -55,7 +55,7 @@ int main() {
 
     redraw_prompt();
     // Dicussion time
-    time_t end = time(NULL) + 100;
+    time_t end = time(NULL) + 10;
     while (time(NULL) < end) {
         FD_ZERO(&read_fds);
         FD_SET(client_fd, &read_fds);
