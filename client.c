@@ -9,10 +9,7 @@
 #include "gamble.c"
 #define PORT 8080
 
-void redraw_prompt() {
-    printf("\rYou: ");
-    fflush(stdout);
-}
+
 
 int main() {
     int client_fd;
@@ -44,18 +41,26 @@ int main() {
       perror("Hankshake failed");
       return -1;
     }
-    printf("The total prize pool is: %d\n", prize);
     /*char bufferServer[10];
     if(read(client_fd, bufferServer, sizeof(bufferServer) - 1) <= 0){
       perror("Hankshake failed");
       return -1;
     } */
+    // 0 = clientA
+    // 1 = clientB
+    int whoAmI;
+    if(read(client_fd, &whoAmI, sizeof(whoAmI)) <= 0){
+      perror("Hankshake failed");
+      return -1;
+    }
+
     printf("Client found! \n");
     printf("Welcome to multiplayer gambling! You will have 10 seconds to discuss! \n");
+    printf("The total prize pool is: %d\n", prize);
 
     redraw_prompt();
     // Dicussion time
-    time_t end = time(NULL) + 10;
+    time_t end = time(NULL) + 4;
     while (time(NULL) < end) {
         FD_ZERO(&read_fds);
         FD_SET(client_fd, &read_fds);
@@ -111,11 +116,11 @@ int main() {
 
         }
     }
-
+    clear_stdin();
     //FINAL DECISION HERE
     char buffer_decision[100];
     char other_buffer_decision[100];
-    printf("Times up! Now make your decision (type steal/split)\n");
+    printf("Now make your decision (type steal/split)\n");
     if(read(STDIN_FILENO, buffer_decision, sizeof(buffer_decision)) <= 0){
       perror("Decision failed");
       return -1;
@@ -128,9 +133,13 @@ int main() {
       perror("Other decision failed");
       return -1;
     }
-    printf("Other buffer decision: %s\n", other_buffer_decision);
+    //printf("Other buffer decision: %s\n", other_buffer_decision);
     //READ
-    handle_decision(buffer_decision, other_buffer_decision, prize);
+    printf("WHOAMI: %d\n", whoAmI);
+    printf("buffer_decision: %s\n", buffer_decision);
+    printf("other_buffer_decision: %s\n", other_buffer_decision);
+
+    handle_decision(buffer_decision, other_buffer_decision, prize, whoAmI);
     printf("DEBUG STRING LINE 127\n");
     //final_decision();
     close(client_fd);

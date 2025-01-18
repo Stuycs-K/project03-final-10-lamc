@@ -16,6 +16,17 @@ union semun {
  };
 ////
 
+void redraw_prompt() {
+    printf("\rYou: ");
+    fflush(stdout);
+}
+
+void clear_stdin() {
+    printf("\nTimes up! Clearing previous messages...press enter to continue");
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 int create_prize(){
   int fd = open("/dev/random", O_RDONLY, 0440);
   int data;
@@ -27,11 +38,18 @@ int create_prize(){
   data = abs(data) % 10001;
   return data;
 }
-
-//void handle_decision(char decisionA[50], char decisionB[50], double prize, int whoAmI){
-  void handle_decision(char decisionA[50], char decisionB[50], double prize){
-  decisionA[strlen(decisionA) - 1] = '\0';
-  decisionB[strlen(decisionB) - 1] = '\0';
+void handle_decision(char decisionA[50], char decisionB[50], double prize, int whoAmI){
+  if(whoAmI == 0){
+    decisionA[strlen(decisionA) - 1] = '\0';
+    decisionB[strlen(decisionB) - 1] = '\0';
+  }else{
+    char temp[50];
+    strcpy(temp, decisionA);
+    decisionA = decisionB;
+    decisionB = temp;
+    decisionA[strlen(decisionA) - 1] = '\0';
+    decisionB[strlen(decisionB) - 1] = '\0';
+  }
   if(strcmp(decisionA, decisionB) == 0){
     printf("decisonA: %s\n", decisionB);
     printf("decisonB: %s\n", decisionB);
@@ -43,9 +61,19 @@ int create_prize(){
     }
   }else{
     if(strcmp(decisionA, "split")){
-      printf("You split but your opponent stole! You were robbed of $%.2f\n", prize);
-    }else{
-      printf("You stole and your opponent split! You robbed of $%.2f\n", prize);
+      if(whoAmI == 0){
+        printf("You split but your opponent stole! You were robbed of $%.2f\n", prize);
+      }
+      else{
+        printf("You stole and your opponent split! You robbed of $%.2f\n", prize);
+      }
+    }
+      else{
+        if(whoAmI == 0){
+          printf("You stole and your opponent split! You robbed of $%.2f\n", prize);
+        } else{
+          printf("You split and your opponent stole! You robbed of $%.2f\n", prize);
+        }
     }
   }
 }

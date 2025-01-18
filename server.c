@@ -88,6 +88,10 @@ int main() {
                         int prize = create_prize();
                         send(client1, &prize, 4, 0);
                         send(client2, &prize, 4, 0);
+                        int client1ID = 0;
+                        int client2ID = 1;
+                        send(client1, &client1ID, 4, 0);
+                        send(client2, &client2ID, 4, 0);
                       //  char bufferA[10] = "A";
                       //  char bufferB[10] = "B";
                     //    send(client1, "A", strlen(bufferA), 0);
