@@ -121,21 +121,37 @@ int main() {
     char buffer_decision[100];
     char other_buffer_decision[100];
     printf("Now make your decision (type steal/split)\n");
-    if(read(STDIN_FILENO, buffer_decision, sizeof(buffer_decision)) <= 0){
-      perror("Decision failed");
-      return -1;
+    if(whoAmI == 0){
+      if(read(STDIN_FILENO, buffer_decision, sizeof(buffer_decision)) <= 0){
+        perror("Decision failed");
+        return -1;
+      }
+      if (send(client_fd, buffer_decision, strlen(buffer_decision), 0) <= 0) {
+          perror("Failed to send message");
+      }
+      if(read(client_fd, other_buffer_decision, sizeof(other_buffer_decision)) <= 0){
+        printf("Other client has selected their chocie!\n");
+        perror("Other decision failed");
+        return -1;
+      }
+    }else{
+      if(read(STDIN_FILENO, other_buffer_decision, sizeof(other_buffer_decision)) <= 0){
+        perror("Decision failed");
+        return -1;
+      }
+      if (send(client_fd, other_buffer_decision, strlen(other_buffer_decision), 0) <= 0) {
+          perror("Failed to send message");
+      }
+      if(read(client_fd, buffer_decision, sizeof(buffer_decision)) <= 0){
+        printf("Other client has selected their chocie!\n");
+        perror("Other decision failed");
+        return -1;
+      }
     }
-    if (send(client_fd, buffer_decision, strlen(buffer_decision), 0) <= 0) {
-        perror("Failed to send message");
-    }
-    ;
-    if(read(client_fd, other_buffer_decision, sizeof(other_buffer_decision)) <= 0){
-      perror("Other decision failed");
-      return -1;
-    }
+
     //printf("Other buffer decision: %s\n", other_buffer_decision);
     //READ
-    printf("WHOAMI: %d\n", whoAmI);
+    printf("whoAmI: %d\n", whoAmI);
     printf("buffer_decision: %s\n", buffer_decision);
     printf("other_buffer_decision: %s\n", other_buffer_decision);
 

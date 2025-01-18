@@ -39,17 +39,8 @@ int create_prize(){
   return data;
 }
 void handle_decision(char decisionA[50], char decisionB[50], double prize, int whoAmI){
-  if(whoAmI == 0){
     decisionA[strlen(decisionA) - 1] = '\0';
     decisionB[strlen(decisionB) - 1] = '\0';
-  }else{
-    char temp[50];
-    strcpy(temp, decisionA);
-    decisionA = decisionB;
-    decisionB = temp;
-    decisionA[strlen(decisionA) - 1] = '\0';
-    decisionB[strlen(decisionB) - 1] = '\0';
-  }
   if(strcmp(decisionA, decisionB) == 0){
     printf("decisonA: %s\n", decisionB);
     printf("decisonB: %s\n", decisionB);
@@ -61,18 +52,18 @@ void handle_decision(char decisionA[50], char decisionB[50], double prize, int w
     }
   }else{
     if(strcmp(decisionA, "split")){
-      if(whoAmI == 0){
+      if(whoAmI == 1){
         printf("You split but your opponent stole! You were robbed of $%.2f\n", prize);
       }
       else{
-        printf("You stole and your opponent split! You robbed of $%.2f\n", prize);
+        printf("You stole and your opponent split! You robbed $%.2f\n", prize);
       }
     }
       else{
-        if(whoAmI == 0){
-          printf("You stole and your opponent split! You robbed of $%.2f\n", prize);
+        if(whoAmI == 1){
+          printf("You stole and your opponent split! You robbed $%.2f\n", prize);
         } else{
-          printf("You split and your opponent stole! You robbed of $%.2f\n", prize);
+          printf("You split but your opponent stole! You were robbed of $%.2f\n", prize);
         }
     }
   }
