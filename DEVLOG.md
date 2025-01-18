@@ -58,3 +58,10 @@ Set up timer and get specific input from user for final decision - 30 mins
 Made a stopping system after 10 seconds and each client only reads one input afterwards (for now it is limited to steal or split) - 30 mins
 Allowed clients to display in unison what the other client typed - 10 mins 
 Fixed bug where displayed messages would be read on the other clients - 15 mins
+
+### 2024-01-16 - Tried to fix bug but realized bug was intended feature
+My original design was a 2D array holding all socket descriptors but my code kept clearing the array so I tried to debug
+(This was silly because then if a client connected onto the server when a game has already started, they would be waiting for longer
+if the previous game had ended because then a new client would take the place of the previous game's spot in the array)
+TLDR: unintentionally made it better and it only took 1.5 hours to realize 
+Got user input for steal/split and almost completely working (Bug where split/steal doesn't work (will fix tmr)) - 40 mins
