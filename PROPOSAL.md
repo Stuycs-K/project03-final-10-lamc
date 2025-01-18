@@ -26,9 +26,9 @@ Semaphores will be used to ensure connection between two players and block more 
 
 # Intended pacing:
 
-Jan 6: Create makefile, copy over everything from previous lab
-Jan 7-9: Make game work
-Jan 9-13: Make connection work with game
-Jan 13: Project should be working at this point
-Jan 14-19: Make improvements, implement login system, ways to spend currency, keep record of wins, etc.
-Jan 20: Make video presentation
+Jan 6: Create makefile, copy over everything from previous lab  
+Jan 7-9: Make game work  
+Jan 9-13: Make connection work with game  
+Jan 13: Project should be working at this point  
+Jan 14-19: Make improvements if I possible, implement login system, keep record of wins and currency, etc.  
+Jan 20: Make video presentation  

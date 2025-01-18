@@ -4,8 +4,9 @@ This document must be updated daily by EACH group member.
 
 ## Chris Lam
 
-### 2024-01-06 - Created skeleton files for the game, added pseudocode to each function
-Getting Started - 45 mins
+### 2024-01-06 - Getting Started 
+Created skeleton files for the game, added pseudocode to each function- 45 mins
+Updated at home - 30 mins
 
 ### 2024-01-07 - Copied my networking code from previous lab, started importing shared memory and semaphores
 Made random number generator works, added semaphores and shared memory headers in gamble.h  - 5 mins
@@ -40,7 +41,7 @@ Added DEVLOG to main branch - 1 min
 Made client to client communication easier by prompting each user and displaying information correctly - 1 hour
 Made while loop timer and cleaned up gamble.c - 30 mins 
 
-### 2024-01-14 - Logistics part 2 + Mader Timer
+### 2024-01-14 - Logistics part 2 + Made Timer
 Found bug where timer doesn't work and tried to fix - 25 mins
 Found bug where if clients connceted to server and left, and then tried connecting again the sockets would break - 15 mins
 Fixed timer by replacing fgets() with read - 20 mins
@@ -59,9 +60,14 @@ Made a stopping system after 10 seconds and each client only reads one input aft
 Allowed clients to display in unison what the other client typed - 10 mins 
 Fixed bug where displayed messages would be read on the other clients - 15 mins
 
-### 2024-01-16 - Tried to fix bug but realized bug was intended feature
+### 2024-01-17 - Tried to fix bug but realized bug was intended feature
 My original design was a 2D array holding all socket descriptors but my code kept clearing the array so I tried to debug
 (This was silly because then if a client connected onto the server when a game has already started, they would be waiting for longer
 if the previous game had ended because then a new client would take the place of the previous game's spot in the array)
 TLDR: unintentionally made it better and it only took 1.5 hours to realize 
 Got user input for steal/split and almost completely working (Bug where split/steal doesn't work (will fix tmr)) - 40 mins
+
+### 2024-01-18 - Finished final decision, put finishing touches
+Finish final decision handling - 1.5 hours
+Made server assign each client anumber to output in the final decision - 1 hour
+Fixed a bunch of bugs (Null terminated strings, clients did not stop reading after time was finished, etc) - 2 hours
