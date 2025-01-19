@@ -7,6 +7,11 @@
 #include <string.h>
 #include <errno.h>
 #include <time.h>
+
+struct User {
+  char username[512];
+  char password[512];
+};
 union semun {
    int              val;    /* Value for SETVAL */
    struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */
@@ -14,7 +19,37 @@ union semun {
    struct seminfo  *__buf;  /* Buffer for IPC_INFO */
                             /* (Linux-specific) */
  };
-////
+
+ void user_handler(){
+   int fd = open("usernames.txt", O_CREAT | O_RDWR | O_APPEND, 0440);
+   printf("Please enter a username: (Please note that usernames and passwords are case sensitive)\n");
+   struct User activeplayers[150];
+   struct User user;
+   fgets(user.username, sizeof(user.username), stdin);
+   int placeholder;
+   for(int i = 0; i < 150; i++){ //Go through to see if username has been taken
+     if(activeplayers[i].username != NULL){
+       placeholder = i;
+       if(strcmp(activeplayers[i].username, user.username) == 0){
+         printf("Please enter the password for %s: ", user.username);
+         fgets(user.password, sizeof(user.password), stdin);
+         while(1){
+           if(strcmp(user.password, activeplayers[i].password)){
+             printf("Incorrect password, please try again (if you typed the wrong username crl + c)\n");
+           }
+           else{
+             break;
+           }
+         }
+         if(strcmp(user.password, activeplayers[i].password) == 0){
+           printf("\nLogin successful! Welcome back %s\n", user.username);
+           break;
+         }
+       }
+     }
+   }
+
+ }
 
 void redraw_prompt() {
     printf("\rYou: ");
