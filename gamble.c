@@ -11,6 +11,7 @@
 struct User {
   char username[512];
   char password[512];
+  int money;
 };
 union semun {
    int              val;    /* Value for SETVAL */
@@ -21,16 +22,18 @@ union semun {
  };
 
  void user_handler(){
-   int fd = open("usernames.txt", O_CREAT | O_RDWR | O_APPEND, 0440);
+   //int fd = open("usernames.txt", O_CREAT | O_RDWR | O_APPEND, 0440);
    printf("Please enter a username: (Please note that usernames and passwords are case sensitive)\n");
    struct User activeplayers[150];
    struct User user;
    fgets(user.username, sizeof(user.username), stdin);
    int placeholder;
+   int hasUser = 0;
    for(int i = 0; i < 150; i++){ //Go through to see if username has been taken
      if(activeplayers[i].username != NULL){
        placeholder = i;
        if(strcmp(activeplayers[i].username, user.username) == 0){
+         hasUser = 1;
          printf("Please enter the password for %s: ", user.username);
          fgets(user.password, sizeof(user.password), stdin);
          while(1){
@@ -42,11 +45,16 @@ union semun {
            }
          }
          if(strcmp(user.password, activeplayers[i].password) == 0){
-           printf("\nLogin successful! Welcome back %s\n", user.username);
+           printf("\nLogin successful! Welcome back %s. You have $%d\n", user.username, user.money);
            break;
          }
        }
      }
+   }
+   if(!hasUser){
+     activeplayers[placeholder] = user;
+     printf("New user detected! Welcome! Please enter a password: \n");
+     fgets(user.password, sizeof(user.password), stdin);
    }
 
  }
