@@ -4,15 +4,6 @@ This document must be updated daily by EACH group member.
 
 ## Chris Lam
 
-### 2024-01-06 - Getting Started 
-Created skeleton files for the game, added pseudocode to each function- 45 mins
-Updated at home - 30 mins
-
-### 2024-01-07 - Copied my networking code from previous lab, started importing shared memory and semaphores
-Made random number generator works, added semaphores and shared memory headers in gamble.h  - 5 mins
-Copied over networking part, tweaked in order to try to get lobby to work - 30 mins
-Started making semaphores for the chatting portion of the game - 30 mins
-
 ### 2024-01-08 - Made makefile, trying to learn sockets, played with sockets
 Makefile - 10 minutes
 Learned socket syntax and comprehending networking-ish (created basic server/client connection with sockets) - 1 hr
@@ -36,10 +27,10 @@ Implemented setsockopt() to fix "bind failed: Address already in use" - 5 mins
 Fixed bug where server stalls on resetting read_fps - 30 mins
 Fixed bug where clients would incorrectly display what they wrote to each other (I didn't fflush) - 15 mins
 
-### 2024-01-13 - Logistics 
+### 2024-01-13 - Logistics
 Added DEVLOG to main branch - 1 min
 Made client to client communication easier by prompting each user and displaying information correctly - 1 hour
-Made while loop timer and cleaned up gamble.c - 30 mins 
+Made while loop timer and cleaned up gamble.c - 30 mins
 
 ### 2024-01-14 - Logistics part 2 + Made Timer
 Found bug where timer doesn't work and tried to fix - 25 mins
@@ -50,21 +41,21 @@ Implemented timer into clients - 30 mins
 
 ### 2024-01-15 - Debugging + Combined chris and socket branches
 Found bug where clients read the prize amount as user input and fixed it - 30 mins
-Imported gamble.c from chris branch into socket branch and shrinked prize size - 30 mins 
+Imported gamble.c from chris branch into socket branch and shrinked prize size - 30 mins
 Turned inital handshake into prize extrpolation from servers - 15 mins
 
 ### 2024-01-16 - Wrote up Final Decision Component  
 Turned socket.c to server.c to setup a timer in server, updated makefile to account for difference - 30 mins
 Set up timer and get specific input from user for final decision - 30 mins
 Made a stopping system after 10 seconds and each client only reads one input afterwards (for now it is limited to steal or split) - 30 mins
-Allowed clients to display in unison what the other client typed - 10 mins 
+Allowed clients to display in unison what the other client typed - 10 mins
 Fixed bug where displayed messages would be read on the other clients - 15 mins
 
 ### 2024-01-17 - Tried to fix bug but realized bug was intended feature
 My original design was a 2D array holding all socket descriptors but my code kept clearing the array so I tried to debug
 (This was silly because then if a client connected onto the server when a game has already started, they would be waiting for longer
 if the previous game had ended because then a new client would take the place of the previous game's spot in the array)
-TLDR: unintentionally made it better and it only took 1.5 hours to realize 
+TLDR: unintentionally made it better and it only took 1.5 hours to realize
 Got user input for steal/split and almost completely working (Bug where split/steal doesn't work (will fix tmr)) - 40 mins
 
 ### 2024-01-18 - Finished final decision, put finishing touches
@@ -73,8 +64,8 @@ Made server assign each client anumber to output in the final decision - 1 hour
 Fixed a bunch of bugs (Null terminated strings, clients did not stop reading after time was finished, etc) - 2 hours
 
 ### 2024-01-19 - Accounts
-Attempted to make username + password system - 2 hours 
+Attempted to make username + password system - 2 hours
 Gave up on the passwords and just made it work with using usernames to login - 30 minutes
 Unsuccessfully tried to synchronize usernames with money - 4 hours
 
-### 2024-01-20 - Accounts + Money works + Made video 
+### 2024-01-20 - Accounts + Money works + Made video
