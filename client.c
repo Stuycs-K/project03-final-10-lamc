@@ -10,8 +10,18 @@
 #define PORT 8080
 
 
-
+// (IPv4 only--see struct sockaddr_in6 for IPv6)
+/*
+struct sockaddr_in {
+    short int          sin_family;  // Address family, AF_INET
+    unsigned short int sin_port;    // Port number
+    struct in_addr     sin_addr;    // Internet address
+    unsigned char      sin_zero[8]; // Same size as struct sockaddr
+};
+*/
 int main() {
+
+  int place = user_handler();
     int client_fd;
     struct sockaddr_in serv_addr;
     char buffer[1024] = {0};
@@ -23,7 +33,7 @@ int main() {
     }
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
-    // Address gibberish
+    // Address is loopback and I don't want to deal with firewalls
     if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0) {
         perror("Invalid address");
         return -1;
@@ -33,6 +43,12 @@ int main() {
         perror("Connection failed");
         return -1;
     }
+    printf("Welcome to multiplayer gambling!\nYou will need to decide to split or steal money with another player.\n");
+  //send(client_fd, &place, sizeof(place), 0);
+    //double currmoney;
+  //read(client_fd, &currmoney, 4);
+  //  printf("You currently have $%.2f\n", currmoney);
+
     printf("Connected to server. Please wait for another player...\n");
 
     //Handshake w/ server to ensure connection with another client
@@ -55,8 +71,8 @@ int main() {
     }
 
     printf("Client found! \n");
-    printf("Welcome to multiplayer gambling! You will have 10 seconds to discuss! \n");
-    printf("The total prize pool is: %d\n", prize);
+    printf("You will have 10 seconds to discuss! \n");
+    printf("The total prize pool is: $%d\n", prize);
 
     redraw_prompt();
     // Dicussion time
@@ -151,12 +167,13 @@ int main() {
 
     //printf("Other buffer decision: %s\n", other_buffer_decision);
     //READ
+/*
     printf("whoAmI: %d\n", whoAmI);
     printf("buffer_decision: %s\n", buffer_decision);
     printf("other_buffer_decision: %s\n", other_buffer_decision);
-
-    handle_decision(buffer_decision, other_buffer_decision, prize, whoAmI);
-    printf("DEBUG STRING LINE 127\n");
+*/
+    handle_decision(buffer_decision, other_buffer_decision, prize, whoAmI, place);
+    //printf("DEBUG STRING LINE 127\n");
     //final_decision();
     close(client_fd);
     // Close the socket

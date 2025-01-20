@@ -85,6 +85,14 @@ int main() {
                         int client1 = socket_descriptors[i][0];
                         int client2 = socket_descriptors[i][1];
                         //Handshake with clients
+                        /*
+                        int place1;
+                        int place2;
+                        read(client1, &place1, sizeof(place1));
+                        read(client2, &place2, sizeof(place2));
+                        send(client1, &money_array[place1], 4, 0);
+                        send(client2, &money_array[place2], 4, 0);
+                        */
                         int prize = create_prize();
                         send(client1, &prize, 4, 0);
                         send(client2, &prize, 4, 0);
@@ -133,7 +141,7 @@ int main() {
                         exit(0);
                     }
                     //Free array
-                    printf("wait this wasn't intended\n");
+                  //  printf("wait this wasn't intended\n");
                     socket_descriptors[i][0] = 0;
                     socket_descriptors[i][1] = 0;
             break;
