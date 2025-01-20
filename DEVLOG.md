@@ -71,3 +71,8 @@ Got user input for steal/split and almost completely working (Bug where split/st
 Finish final decision handling - 1.5 hours
 Made server assign each client anumber to output in the final decision - 1 hour
 Fixed a bunch of bugs (Null terminated strings, clients did not stop reading after time was finished, etc) - 2 hours
+
+### 2024-01-19 - Accounts
+Attempted to make username + password system - 2 hours 
+Gave up on the passwords and just made it work with using usernames to login - 30 minutes
+Unsuccessfully tried to synchronize usernames with money - 4 hours
