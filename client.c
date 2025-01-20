@@ -8,8 +8,6 @@
 #include <time.h>
 #include "gamble.c"
 #define PORT 8080
-
-
 // (IPv4 only--see struct sockaddr_in6 for IPv6)
 /*
 struct sockaddr_in {
@@ -22,6 +20,21 @@ struct sockaddr_in {
 int main() {
 
   int place = user_handler();
+/*
+  FILE *moneyfile = fopen("money.txt", "r");
+  if (moneyfile == NULL) {
+      return 1;
+  }
+  double money_array[100];
+  double num;
+  int count = 0;
+  while (fscanf(moneyfile, "%lf", &num) == 1) {
+      if (count >= sizeof(money_array) / sizeof(money_array[0])) {
+          break;
+      }
+      money_array[count++] = num;
+  } */
+
     int client_fd;
     struct sockaddr_in serv_addr;
     char buffer[1024] = {0};
@@ -43,6 +56,8 @@ int main() {
         perror("Connection failed");
         return -1;
     }
+    //recv(client_fd, money_array, sizeof(money_array), 0);
+
     printf("Welcome to multiplayer gambling!\nYou will need to decide to split or steal money with another player.\n");
   //send(client_fd, &place, sizeof(place), 0);
     //double currmoney;
@@ -57,6 +72,7 @@ int main() {
       perror("Hankshake failed");
       return -1;
     }
+
     /*char bufferServer[10];
     if(read(client_fd, bufferServer, sizeof(bufferServer) - 1) <= 0){
       perror("Hankshake failed");
@@ -134,6 +150,9 @@ int main() {
     }
     clear_stdin();
     //FINAL DECISION HERE
+
+
+
     char buffer_decision[100];
     char other_buffer_decision[100];
     printf("Now make your decision (type steal/split)\n");
@@ -173,6 +192,8 @@ int main() {
     printf("other_buffer_decision: %s\n", other_buffer_decision);
 */
     handle_decision(buffer_decision, other_buffer_decision, prize, whoAmI, place);
+
+    //sending updated array
     //printf("DEBUG STRING LINE 127\n");
     //final_decision();
     close(client_fd);

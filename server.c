@@ -7,7 +7,6 @@
 #include <unistd.h>
 #include "gamble.c"
 #define PORT 8080
-
 int main() {
     int socket_descriptors[100][2] = {0}; // Initialize to 0
     int server_fd, client_socket, max_sd, sd, activity;
@@ -65,6 +64,7 @@ int main() {
                 perror("accept error");
                 exit(EXIT_FAILURE);
             }
+            //send(client_fd, money_array, sizeof(money_array);
 
             printf("New client connected: socket %d\n", client_socket);
 
@@ -96,6 +96,9 @@ int main() {
                         int prize = create_prize();
                         send(client1, &prize, 4, 0);
                         send(client2, &prize, 4, 0);
+
+
+
                         int client1ID = 0;
                         int client2ID = 1;
                         send(client1, &client1ID, 4, 0);
@@ -134,9 +137,8 @@ int main() {
                   break;
                             }
                         }
-
+                      //  FILE *file = fopen(FILE_NAME, "r");
                         //printf("Subserver exiting for clients %d and %d\n", socket_descriptors[i][0], socket_descriptors[i][1]);
-
 						//Done with game
                         exit(0);
                     }

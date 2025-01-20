@@ -7,8 +7,7 @@
 #include <string.h>
 #include <errno.h>
 #include <time.h>
-
-double money_array[1000];
+double money_array[100] = {0.0};
 
 union semun {
    int              val;    /* Value for SETVAL */
@@ -23,11 +22,43 @@ union semun {
    double money;
  };
 
+ void update_line(double value, int index, int lineLength) {
+    int fd = open("money.txt", O_RDWR);
+    if (fd < 0) {
+        perror("open file");
+        return;
+    }
+    off_t offset = index * lineLength;
+    if (lseek(fd, offset, SEEK_SET) == (off_t)-1) {
+        perror("seek file");
+        close(fd);
+        return;
+    }
+    char buffer[100];
+    int formattedLength = snprintf(buffer, sizeof(buffer), "%-14.6f\n", value);
+    if (formattedLength > lineLength) {
+        fprintf(stderr, "exceeds line length\n");
+        close(fd);
+        return;
+    }
+    if (write(fd, buffer, lineLength) != lineLength) {
+        perror("write file");
+        close(fd);
+        return;
+    }
+    close(fd);
+    //printf("Line %d updated successfully in the file.\n", index);
+}
+
 
  int user_handler() { // Returns the index of the money array that corresponds to the user
      FILE* fp = fopen("usernames.txt", "a+");
+     FILE *file = fopen("money.txt", "w");
+     for (int i = 0; i < 100; i++) {
+       fprintf(file, "%f\n", money_array[i]);
+     }
      if (!fp) {
-         perror("Failed to open file");
+         perror("open file");
          return -1;
      }
      struct User user;
@@ -48,10 +79,11 @@ union semun {
                  line[len - 1] = '\0';
             }
              if (strcmp(line, user.username) == 0) {
-                 printf("Welcome back, %s!\n", user.username);
+                 printf("Hello again, %s!\n", user.username);
                  hasUser = 1;
                  placeholder = i;
-         }
+                 break;
+               }
          } else {
              placeholder = i;
              break;
@@ -100,21 +132,25 @@ void handle_decision(char decisionA[50], char decisionB[50], double prize, int w
       printf("You both split! You both won $%.2f\n", prize);
       money_array[place] += prize;
       printf("Your new balance is: $%.2f\n", money_array[place]);
+      update_line(money_array[place], place, 15);
     }else{
       printf("You both stole! You both lost $%.2f\n", prize);
       money_array[place] -= prize;
       printf("Your new balance is: $%.2f\n", money_array[place]);
+      update_line(money_array[place], place, 15);
     }
   }else{
     if(strcmp(decisionA, "split")){
       if(whoAmI == 1){
         printf("You split but your opponent stole! You were robbed of $%.2f\n", prize);
         printf("Your balance is: $%.2f\n", money_array[place]);
+        update_line(money_array[place], place, 15);
       }
       else{
         printf("You stole and your opponent split! You robbed $%.2f\n", prize);
         money_array[place] += prize;
         printf("Your new balance is: $%.2f\n", money_array[place]);
+        update_line(money_array[place], place, 15);
       }
     }
       else{
@@ -122,12 +158,12 @@ void handle_decision(char decisionA[50], char decisionB[50], double prize, int w
           printf("You stole and your opponent split! You robbed $%.2f\n", prize);
           money_array[place] += prize;
           printf("Your new balance is: $%.2f\n", money_array[place]);
+          update_line(money_array[place], place, 15);
         } else{
           printf("You split but your opponent stole! You were robbed of $%.2f\n", prize);
           printf("Your balance is: $%.2f\n", money_array[place]);
+          update_line(money_array[place], place, 15);
         }
     }
   }
 }
-
-//debug
