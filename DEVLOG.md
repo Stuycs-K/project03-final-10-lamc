@@ -76,3 +76,5 @@ Fixed a bunch of bugs (Null terminated strings, clients did not stop reading aft
 Attempted to make username + password system - 2 hours 
 Gave up on the passwords and just made it work with using usernames to login - 30 minutes
 Unsuccessfully tried to synchronize usernames with money - 4 hours
+
+### 2024-01-20 - Accounts + Money works + Made video 
