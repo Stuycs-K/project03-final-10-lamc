@@ -51,53 +51,62 @@ union semun {
 }
 
 
- int user_handler() { // Returns the index of the money array that corresponds to the user
-     FILE* fp = fopen("usernames.txt", "a+");
-     FILE *file = fopen("money.txt", "w");
-     for (int i = 0; i < 100; i++) {
-       fprintf(file, "%f\n", money_array[i]);
-     }
-     if (!fp) {
-         perror("open file");
-         return -1;
-     }
-     struct User user;
-     printf("Please enter a username (usernames are case-sensitive):\n");
-     fgets(user.username, sizeof(user.username), stdin);
-     size_t len = strlen(user.username);
-     if (len > 0 && user.username[len - 1] == '\n') {
-         user.username[len - 1] = '\0';
-     }
-     int placeholder = -1;
-     int hasUser = 0;
-     char line[512];
-     rewind(fp);
-     for (int i = 0; i < 150; i++) {
-         if (fgets(line, sizeof(line), fp) != NULL) {
-             len = strlen(line);
-             if (len > 0 && line[len - 1] == '\n') {
-                 line[len - 1] = '\0';
-            }
-             if (strcmp(line, user.username) == 0) {
-                 printf("Hello again, %s!\n", user.username);
-                 hasUser = 1;
-                 placeholder = i;
-                 break;
-               }
-         } else {
-             placeholder = i;
-             break;
-         }
-     }
-     if (!hasUser) {
-         fprintf(fp, "%s\n", user.username);
-         fflush(fp);
-         printf("New user detected! Welcome, %s!\n", user.username);
-     }
-     fclose(fp);
-     printf("PLACEHOLDER: %d\n", placeholder);
-     return placeholder;
- }
+int user_handler() {
+   FILE *fp = fopen("usernames.txt", "a+");
+   FILE *moneyfile = fopen("money.txt", "r+");
+   if (!fp || !moneyfile) {
+       perror("failes did not open");
+       return -1;
+   }
+   double num;
+   int count = 0;
+   while (fscanf(moneyfile, "%lf", &num) == 1) {
+       if (count >= sizeof(money_array) / sizeof(money_array[0])) {
+           break;
+       }
+       money_array[count++] = num;
+   }
+   for (int i = count; i < 100; i++) {
+       money_array[i] = 0.0;
+   }
+   fclose(moneyfile);
+   struct User user;
+   printf("Please enter a username (usernames are case-sensitive):\n");
+   fgets(user.username, sizeof(user.username), stdin);
+   size_t len = strlen(user.username);
+   if (len > 0 && user.username[len - 1] == '\n') {
+       user.username[len - 1] = '\0';
+   }
+   int placeholder = -1;
+   int hasUser = 0;
+   char line[512];
+   rewind(fp);
+   for (int i = 0; i < 150; i++) {
+       if (fgets(line, sizeof(line), fp) != NULL) {
+           len = strlen(line);
+           if (len > 0 && line[len - 1] == '\n') {
+               line[len - 1] = '\0';
+           }
+           if (strcmp(line, user.username) == 0) {
+               printf("Hello again, %s!\n", user.username);
+               hasUser = 1;
+               placeholder = i;
+               break;
+           }
+       } else {
+           placeholder = i;
+           break;
+       }
+   }
+   if (!hasUser) {
+       fprintf(fp, "%s\n", user.username);
+       fflush(fp);
+       printf("New user detected! Welcome, %s!\n", user.username);
+   }
+   fclose(fp);
+   printf("PLACEHOLDER: %d\n", placeholder);
+   return placeholder;
+}
 
 void redraw_prompt() {
     printf("\rYou: ");
@@ -121,6 +130,7 @@ int create_prize(){
   data = abs(data) % 10001;
   return data;
 }
+
 void handle_decision(char decisionA[50], char decisionB[50], double prize, int whoAmI, int place){
     decisionA[strlen(decisionA) - 1] = '\0';
     decisionB[strlen(decisionB) - 1] = '\0';
