@@ -8,7 +8,7 @@
 #include "gamble.c"
 #define PORT 8080
 int main() {
-    FILE *moneyfile = fopen("money.txt", "w");
+    FILE *moneyfile = fopen("money.txt", "a+");
     fclose(moneyfile);
     int socket_descriptors[100][2] = {0}; // Initialize to 0
     int server_fd, client_socket, max_sd, sd, activity;

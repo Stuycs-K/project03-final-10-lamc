@@ -1,11 +1,12 @@
+.PHONY: clean server client
 compile:
-	gcc -o server server.c
-	gcc -o client client.c
+	@gcc -o server server.c
+	@gcc -o client client.c
 clean:
-	@rm server
-	@rm client
-	@rm money.txt
-	@rm usernames.txt
+	@rm -f server
+	@rm -f client
+	@rm -f money.txt
+	@rm -f usernames.txt
 server:
 	@./server
 client:

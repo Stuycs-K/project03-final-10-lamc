@@ -8,24 +8,15 @@
 #include <time.h>
 #include "gamble.c"
 #define PORT 8080
-// (IPv4 only--see struct sockaddr_in6 for IPv6)
-/*
-struct sockaddr_in {
-    short int          sin_family;  // Address family, AF_INET
-    unsigned short int sin_port;    // Port number
-    struct in_addr     sin_addr;    // Internet address
-    unsigned char      sin_zero[8]; // Same size as struct sockaddr
-};
-*/
-int main() {
 
-  int place = user_handler();
-/*
+int main() {
+  double money_array[100];
+
+
   FILE *moneyfile = fopen("money.txt", "r");
   if (moneyfile == NULL) {
       return 1;
   }
-  double money_array[100];
   double num;
   int count = 0;
   while (fscanf(moneyfile, "%lf", &num) == 1) {
@@ -33,7 +24,10 @@ int main() {
           break;
       }
       money_array[count++] = num;
-  } */
+  }
+
+  int place = user_handler();
+  printf("Your current balance is: %.2f\n", money_array[place]);
 
     int client_fd;
     struct sockaddr_in serv_addr;
@@ -57,6 +51,16 @@ int main() {
         return -1;
     }
     //recv(client_fd, money_array, sizeof(money_array), 0);
+
+    // (IPv4 only--see struct sockaddr_in6 for IPv6)
+    /*
+    struct sockaddr_in {
+        short int          sin_family;  // Address family, AF_INET
+        unsigned short int sin_port;    // Port number
+        struct in_addr     sin_addr;    // Internet address
+        unsigned char      sin_zero[8]; // Same size as struct sockaddr
+    };
+    */
 
     printf("Welcome to multiplayer gambling!\nYou will need to decide to split or steal money with another player.\n");
   //send(client_fd, &place, sizeof(place), 0);
