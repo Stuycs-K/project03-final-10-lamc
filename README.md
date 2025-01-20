@@ -9,9 +9,10 @@ Member: Chris Lam
 
 This project is a two-player prisoner's dilemma chat game using sockets. Pairs of clients will be allotted time to convince the other player to split with them. When time is up, each player must decide to split or steal the prize money.
 The prize will then be distributed accordingly:
-*If both players steal both will lose half of the prize  
-*If both players split both will win half of the prize
-*If one steals and the other splits, the one that steals will win all of the prize while the one that splits will get nothing
+
+  *If both players steal both will lose half of the prize  
+  *If both players split both will win half of the prize
+  *If one steals and the other splits, the one that steals will win all of the prize while the one that splits will get nothing
 
 
 ### Video Presentation
