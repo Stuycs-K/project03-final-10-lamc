@@ -23,4 +23,4 @@ The prize will then be distributed accordingly:
 2. Run `make clean`
 3. Run `make compile`
 4. Run `make server`
-5. Open a two new terminals and run two instances of `make client`
+5. Open two new terminals and run two instances of `make client`
