@@ -95,7 +95,7 @@ int user_handler() {
        printf("New user detected! Welcome, %s!\n", user.username);
    }
    fclose(fp);
-   printf("PLACEHOLDER: %d\n", placeholder);
+  // printf("PLACEHOLDER: %d\n", placeholder);
    return placeholder;
 }
 
@@ -126,8 +126,8 @@ void handle_decision(char decisionA[50], char decisionB[50], double prize, int w
     decisionA[strlen(decisionA) - 1] = '\0';
     decisionB[strlen(decisionB) - 1] = '\0';
   if(strcmp(decisionA, decisionB) == 0){
-    printf("decisonA: %s\n", decisionB);
-    printf("decisonB: %s\n", decisionB);
+    //printf("decisonA: %s\n", decisionB);
+    //printf("decisonB: %s\n", decisionB);
     prize /= 2;
     if(strcmp(decisionA, "split") == 0){
       printf("You both split! You both won $%.2f\n", prize);
