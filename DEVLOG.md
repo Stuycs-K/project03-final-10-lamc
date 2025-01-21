@@ -17,7 +17,7 @@ Literally read select demo code and did not understand most of it - 30 mins
 Identified & fixed problems with forking server and when multiple clients try to connect to main server - 30 mins
 Still cannot fix bug where client's are reading each others' garbage (probably reading/writing too many bytes but I cannot find the source) - 30 mins
 
-### 2024-01-12 - Total redesign of previous networking, Client + Socket selecting, server forking + selection being able to read from multiple socket descriptors
+### 2024-01-11 + 12 - Total redesign of previous networking, Client + Socket selecting, server forking + selection being able to read from multiple socket descriptors
 Fixed reading garbage (forgot to reset buffer after each iteration) - 20 mins
 Created 2 x 100 socket descriptor array to fill with new clients, added client sockets to read_fps for select preperations - 1 hour
 Cleaned up socket code on the server side, implemenetd forking server when both indicies are filled and reading clients stdin - 1 hour
@@ -69,3 +69,6 @@ Gave up on the passwords and just made it work with using usernames to login - 3
 Unsuccessfully tried to synchronize usernames with money - 4 hours
 
 ### 2024-01-20 - Accounts + Money works + Made video
+Made accounts link up to money (survives through multiple clients) + cleaned up files - 2 hours
+Updated README - 15 mins
+Created video presentation - 30 mins
